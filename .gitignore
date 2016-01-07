@@ -1,0 +1,5 @@
+.DS_Store
+/**/.DS_Store
+/client/dist/*
+!/client/dist/index.html
+/**/node_modules/
