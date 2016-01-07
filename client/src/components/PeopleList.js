@@ -1,9 +1,11 @@
 import React from 'react'
 
-const Search = () => {
+const Search = ({
+  onKeyUpHandler
+}) => {
   return (
     <div className="search">
-      <input type="text" placeholder="search" />
+      <input type="text" placeholder="search" onKeyUp={(e) => {onKeyUpHandler(e.target.value)}} />
       <i className="fa fa-search"></i>
     </div>
   )
@@ -54,10 +56,13 @@ const List = ({
 
 export default class PeopleList extends React.Component {
   render() {
+    const users = (this.props.usersResult.length) ? this.props.usersResult : this.props.users
+    console.log(users)
+    const props = Object.assign({}, this.props, { users })
     return (
       <div className="people-list" id="people-list">
-        <Search />
-        <List onSelectUser={this.props.selectDispatcher} {...this.props}/>
+        <Search onKeyUpHandler={this.props.searchDispatcher} />
+        <List onSelectUser={this.props.selectDispatcher} {...props} />
       </div>
     )
   }

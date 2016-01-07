@@ -25,6 +25,7 @@ function loggedUser(state, user) {
   const users = state.users.map(u => {
     if(u.name === user.username){
       u.id = user.id
+      u.status = "online"
     }
     return u
   })
@@ -38,6 +39,16 @@ function addMessage(state, message){
   return Object.assign({}, state, { messages: state.messages.concat([message]) })
 }
 
+function changeStatus(state, userId) {
+  return Object.assign({}, state,
+            { users: state.users.map( u => {
+              if(u.id === userId){
+                u.status = "offline"
+              }
+              return u
+            })})
+}
+
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -45,6 +56,8 @@ export default function (state = INITIAL_STATE, action) {
       return loggedUser(state, action.user)
     case 'ADD_MESSAGE':
       return addMessage(state, action.message)
+    case "LOGGEDOUT_USER":
+      return changeStatus(state, action.userId)
     default:
       return state
   }

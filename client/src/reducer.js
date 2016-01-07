@@ -27,7 +27,7 @@ function selectUser(state, userId) {
 
 function setState(state) {
   console.log("setState", state)
-  return Object.assign({}, state)
+  return Object.assign({}, state, {usersResult: [] })
 }
 
 function setLoggedUser(state, username) {
@@ -36,8 +36,10 @@ function setLoggedUser(state, username) {
 
 function friendLogged(state, user) {
   const users = state.users.map(u => {
-    if(u.name === user.name)
+    if(u.name === user.name){
       u.id = user.id
+      u.status = "online"
+    }
     return u
   })
 
@@ -46,6 +48,27 @@ function friendLogged(state, user) {
                         { users })
 }
 
+function friendLoggedOut(state, userId) {
+  const users = state.users.map(u => {
+    if(u.id === userId){
+      u.status = "offline"
+    }
+    return u
+  })
+  return Object.assign({},
+                  state,
+                  { users })
+}
+
+
+function searchUsers(state, value) {
+  // const query = `/${value}.*/`
+  const usersResult = state.users.filter(u => u.name.toLowerCase().indexOf(value.toLowerCase()) > -1 )
+  console.log(usersResult);
+  return Object.assign({},
+                      state,
+                      {usersResult})
+}
 export default function(state = INITIAL_STATE, action){
   console.log("REDUCER", state, action)
   switch (action.type) {
@@ -57,6 +80,10 @@ export default function(state = INITIAL_STATE, action){
       return selectUser(state, action.userId)
     case 'FRIEND_LOGGED':
       return friendLogged(state, action.user)
+    case 'FRIEND_LOGGED_OUT':
+      return friendLoggedOut(state, action.userId)
+    case 'SEARCH_USER':
+      return searchUsers(state, action.value)
     case 'SET_STATE':
       return setState(action.state)
     default:

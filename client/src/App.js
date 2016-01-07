@@ -25,13 +25,13 @@ export default class App extends Component {
     this.props.login(username)
   }
   render() {
-    const {users, loggedUser, selectedConversation, selectedUser, dispatchLogin} = this.props
+    const {users, loggedUser, selectedConversation, selectedUser, dispatchLogin, usersResult} = this.props
     return (
       <div className="container clearfix">
         {
           (loggedUser) ?
           ( <div>
-            <PeopleList selectDispatcher={this.props.selectDispatcher} {...{users, selectedUser}}/>
+            <PeopleList selectDispatcher={this.props.selectDispatcher}  searchDispatcher={this.props.searchDispatcher} {...{users, selectedUser, usersResult}}/>
             <Chat {...{loggedUser, selectedConversation, selectedUser}} dispatchSendMessage={(m) => { this.dispatchSendMessage(m) }}  />
           </div> )
           :

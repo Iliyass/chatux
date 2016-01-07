@@ -116,7 +116,10 @@ let ChatHistory = React.createClass({
 let MessageInput = React.createClass({
   messageSendDelegate: function(e) {
     e.preventDefault()
-    this.props.onSendHandler(this.refs.content.value)
+    const msg = this.refs.content.value
+    this.refs.content.value = ''
+    this.refs.content.focus()
+    this.props.onSendHandler(msg)
   },
   render: function(){
     return (

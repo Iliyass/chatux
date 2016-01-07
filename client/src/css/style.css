@@ -231,3 +231,14 @@ body {
     border-radius: 5px;
     resize: none;
 }
+
+.btn{
+  float: right;
+  color: #94C2ED;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: #F2F5F8;
+}

@@ -28,6 +28,10 @@ socket.on('friend_logged', (user) => {
   store.dispatch({type: 'FRIEND_LOGGED', user})
 })
 
+socket.on('friend_logged_out', (userId) => {
+  store.dispatch({type: 'FRIEND_LOGGED_OUT', userId})
+})
+
 socket.on('receiving_message', (message) => {
   store.dispatch({type: 'SEND_MESSAGE', message})
 })
@@ -46,13 +50,19 @@ function emitLoggedIn(username) {
   socket.emit('login', username)
 }
 
+window.onbeforeunload = () => {
+  socket.emit('logout')
+}
+
 render()
 
 function render(){
   ReactDOM.render(
     <App {...store.getState()} sendMessage={ (message) => { store.dispatch({ type: 'SEND_MESSAGE', message })}  }
                                selectDispatcher={(userId) => { store.dispatch({type: 'SELECT_USER', userId})}}
-                              dispatchLogin={emitLoggedIn}/>,
+                              dispatchLogin={emitLoggedIn}
+                              searchDispatcher={ (value) => { store.dispatch({type: 'SEARCH_USER', value }) }}
+                              />,
     document.getElementById('root')
   )
 }
