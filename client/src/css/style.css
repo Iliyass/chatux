@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+/*@import url(https://fonts.googleapis.com/css?family=Lato:400,700);*/
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -241,4 +241,12 @@ body {
   cursor: pointer;
   font-weight: bold;
   background: #F2F5F8;
+}
+
+.notif{
+  position: relative;
+  top: 18px;
+  left: 87px;
+  float: left;
+  color: red;
 }

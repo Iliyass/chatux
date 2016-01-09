@@ -11,11 +11,12 @@ io.on('connection', (socket) => {
   console.log("User connect :", socket.id);
 
   socket.on('login', (username) => {
-    console.log("login", user);
+    console.log("Logged", {id: socket.id, username } );
     store.dispatch({type: 'LOGGED_USER', user: {id: socket.id, username } })
     const user = store.getState().users.filter(u => u.name === username)[0]
 
     if(user){
+      console.log("emit state");
       socket.emit('state', { state: store.getState(), username })
       socket.broadcast.emit('friend_logged', user)
     }

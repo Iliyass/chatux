@@ -12,10 +12,11 @@ const socket = io('http://localhost:8090')
 
 const socketIOMiddleware = store => next => action => {
   console.log('dispatching ', action)
+  const result = next(action)
   if(action.type === 'SEND_MESSAGE'){
+    console.log("senging message ");
     socket.emit('sending_message', action.message)
   }
-  const result = next(action)
   console.log('next state', store.getState());
   return result
 }
@@ -25,15 +26,21 @@ let createStoreWithMiddleware = applyMiddleware(socketIOMiddleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
 socket.on('friend_logged', (user) => {
-  store.dispatch({type: 'FRIEND_LOGGED', user})
+  console.log("friend_logged", user);
+    store.dispatch({type: 'FRIEND_LOGGED', user})
 })
 
 socket.on('friend_logged_out', (userId) => {
-  store.dispatch({type: 'FRIEND_LOGGED_OUT', userId})
+    console.log("friend_logged_out, state", store.getState().length);
+    store.dispatch({type: 'FRIEND_LOGGED_OUT', userId})
 })
 
 socket.on('receiving_message', (message) => {
-  store.dispatch({type: 'SEND_MESSAGE', message})
+  console.log("receiving_message", message.from, store.getState().selectedUser.id)
+  if(message.from != store.getState().selectedUser.id){
+    new Audio('notif.mp3').play()
+  }
+  store.dispatch({type: 'RECEIVE_MESSAGE', message})
 })
 
 socket.on('state', ({state, username}) => {
@@ -45,9 +52,16 @@ socket.on('state', ({state, username}) => {
   render()
 })
 
+const username = localStorage.getItem("username")
+
+if(username){
+  emitLoggedIn(username)
+}
+
 function emitLoggedIn(username) {
   console.log("Emit Logged In", username);
   socket.emit('login', username)
+  localStorage.setItem("username", username)
 }
 
 window.onbeforeunload = () => {

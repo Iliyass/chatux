@@ -29,7 +29,7 @@ const User = ({
 }) => {
   const { id, avatar, name, status } = user
   const className = (active) ? 'active' : ''
-  console.log(avatar)
+  const notif = (user.hasMessagesUnread) ? (<div className="notif"> <i className="fa fa-bell"></i> </div> ) : ''
   return (
     <li onClick={onClick} className={`clearfix ${className}`}>
       <img src={avatar} alt="avatar" />
@@ -37,6 +37,7 @@ const User = ({
         <div className="name">{name}</div>
         <Status status={status}/>
       </div>
+      { notif }
     </li>
   )
 }

@@ -140,7 +140,7 @@ let MessageInput = React.createClass({
 export default class Chat extends React.Component {
   messageSend (message) {
       const {selectedUser, loggedUser } = this.props
-      const msg = {content: message, date: +new Date(), from: loggedUser.id, to: selectedUser.id }
+      const msg = {content: message, date: +new Date(), from: loggedUser.id, to: selectedUser.id, isRead: false }
       this.props.dispatchSendMessage(msg)
   }
   render() {
