@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 
 
 const ChatHeader = ({
-  avatar,
-  name,
-  messagesCount
+  selectedUser,
+  messagesCount  
 }) => {
+  const { avatar, name } = selectedUser
   return (
     <div className="chat-header clearfix">
       <img src={avatar} alt="avatar" />
@@ -145,9 +145,10 @@ export default class Chat extends React.Component {
   }
   render() {
     const {loggedUser, selectedUser, selectedConversation} = this.props
+    const messagesCount = selectedConversation.length
     return (
       <div className="chat">
-        <ChatHeader {...selectedUser} />
+        <ChatHeader {...{selectedUser, messagesCount}} />
         <ChatHistory ref="chatHistory" {...{loggedUser, selectedUser, selectedConversation}}/>
         <MessageInput onSendHandler={c => this.messageSend(c) } />
       </div>
