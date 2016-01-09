@@ -1,6 +1,8 @@
 # chatux
 a tiny chat app built with React, Redux, SocketIO for learning purposes
 
+the chat UI from [Codepen](http://codepen.io/drehimself/pen/KdXwxR)  
+
 # starting the project
 for the server
 
