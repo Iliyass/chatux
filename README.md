@@ -1,20 +1,20 @@
-# chatux
-a tiny chat app built with React, Redux, SocketIO for learning purposes
+# Chatux
+A tiny chat app built with React, Redux, SocketIO with Sounds Yaay !
 
-the chat UI from [Codepen](http://codepen.io/drehimself/pen/KdXwxR)  
+UI used by Andre Madarang from [Codepen](http://codepen.io/drehimself/pen/KdXwxR)  
 
-# starting the project
-for the server
+## Screenshot
+![Chatux](https://github.com/Iliyass/chatux/blob/master/chatux_screenshot.png)
 
-`$ cd chatux/server`
+## Setup
+```
 
-`$ npm start`
+$ git clone git@github.com:Iliyass/chatux.git
+$ cd chatux
+$ cd server && npm install && npm run start #keep this process running
+$ cd client && npm install && npm run start #on a new terminal tab ;)
 
-for the client
+```
 
-`$ cd chatux/client`
-
-`$ npm start`
-
-you can find the project in `http://localhost:8080`
-here are the logins you can use, `Iliyass, Hamza, Simo, Abdp` *there is a type :D 
+You can find the project in `http://localhost:8080`
+here are the logins you can use, `Iliyass, Hamza, Simo, Abdp` *there is a typo :D 
